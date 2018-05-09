@@ -3,11 +3,11 @@ library( neuralnet )
 library( hydroGOF )
 library( leaps )
 library( arules )
-
+library( BBmisc)
 #red wine
-dadosRed <- read.csv("~/MLWine/datasets/winequality-red.csv",header=TRUE,sep=";",dec=".")
+dadosRed <- read.csv("~/Documents/Dev/MLWine/Datasets/winequality-red.csv",header=TRUE,sep=";",dec=".")
 #white wine
-dadosWhite <- read.csv("~/MLWine/datasets/winequality-white.csv",header=TRUE,sep=";",dec=".")
+dadosWhite <- read.csv("~/Documents/Dev/MLWine/Datasets/winequality-white.csv",header=TRUE,sep=";",dec=".")
 
 #junta os dados
 dados <- rbind(dadosRed, dadosWhite)
@@ -17,10 +17,13 @@ dadosR <- dados[sample(nrow(dados)),]
 
 #casos para treino:
 dadosTreino <- dadosR[1:4500, ]
+dadosTreino[,1:11] <- normalize(dadosTreino[,1:11], method="range", range=c(0,1))
+
 #casos para teste:
 dadosTeste <- dadosR[4501:6497, ]
+dadosTeste[,1:11] <- normalize(dadosTeste[,1:11], method="range", range=c(0,1))
 
-# definição das camadas de entrada e saída da RNA
+# defini????o das camadas de entrada e sa??da da RNA
 funcao <- quality ~ fixed.acidity+volatile.acidity+citric.acid+residual.sugar+chlorides+free.sulfur.dioxide+total.sulfur.dioxide+density+pH+sulphates+alcohol
 selecao1<-regsubsets(funcao,dadosR,nvmax=11)
 summary(selecao1)
@@ -32,9 +35,9 @@ funcaoOpt <- quality ~ alcohol+volatile.acidity+sulphates+residual.sugar+total.s
 funcaoOpt2 <- quality ~ alcohol+volatile.acidity+sulphates
 
 # treinar a rede neuronal
-rnaWine11 <- neuralnet( funcao, dadosTreino, hidden = c(7,3), threshold = 0.1)
-rnaWine12 <- neuralnet( funcaoOpt, dadosTreino, hidden = c(7,3), threshold = 0.1)
-rnaWine13 <- neuralnet( funcaoOpt2, dadosTreino, hidden = c(7,3), threshold = 0.1)
+rnaWine11 <- neuralnet( funcao, dadosTreino, lifesign="full", hidden = c(7,3), threshold = 0.1)
+rnaWine12 <- neuralnet( funcaoOpt, dadosTreino, lifesign="full", hidden = c(7,3), threshold = 0.1)
+rnaWine13 <- neuralnet( funcaoOpt2, dadosTreino, lifesign="full", hidden = c(7,3), threshold = 0.1)
 
 rnaWine21 <- neuralnet( funcao, dadosTreino, hidden = c(8,4,2), threshold = 0.1)
 rnaWine22 <- neuralnet( funcaoOpt, dadosTreino, hidden = c(8,4,2), threshold = 0.1)
