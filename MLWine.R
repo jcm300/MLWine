@@ -14,14 +14,13 @@ dados <- rbind(dadosRed, dadosWhite)
 
 #randomize dados
 dadosR <- dados[sample(nrow(dados)),]
+dadosR[,1:11] <- normalize(dadosR[,1:11], method="range", range=c(0,1))
 
 #casos para treino:
 dadosTreino <- dadosR[1:4500, ]
-dadosTreino[,1:11] <- normalize(dadosTreino[,1:11], method="range", range=c(0,1))
 
 #casos para teste:
 dadosTeste <- dadosR[4501:6497, ]
-dadosTeste[,1:11] <- normalize(dadosTeste[,1:11], method="range", range=c(0,1))
 
 # defini????o das camadas de entrada e sa??da da RNA
 funcao <- quality ~ fixed.acidity+volatile.acidity+citric.acid+residual.sugar+chlorides+free.sulfur.dioxide+total.sulfur.dioxide+density+pH+sulphates+alcohol
