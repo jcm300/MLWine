@@ -51,7 +51,7 @@ dadosTeste3 <- subset(dadosTeste, select = c("alcohol","volatile.acidity","sulph
 rnaWine11.resultados <- compute(rnaWine11,dadosTeste1)
 rnaWine12.resultados <- compute(rnaWine12,dadosTeste2)
 rnaWine13.resultados <- compute(rnaWine13,dadosTeste3)
-rnaWine21.resultados <- compute(rnaWine11,dadosTeste1)
+rnaWine21.resultados <- compute(rnaWine21,dadosTeste1)
 rnaWine22.resultados <- compute(rnaWine22,dadosTeste2)
 rnaWine23.resultados <- compute(rnaWine23,dadosTeste3)
 
