@@ -22,7 +22,7 @@ dadosTreino <- dadosR[1:4500, ]
 #casos para teste:
 dadosTeste <- dadosR[4501:6497, ]
 
-# defini????o das camadas de entrada e sa??da da RNA
+# definição das camadas de entrada e saída da RNA
 funcao <- quality ~ fixed.acidity+volatile.acidity+citric.acid+residual.sugar+chlorides+free.sulfur.dioxide+total.sulfur.dioxide+density+pH+sulphates+alcohol
 selecao1<-regsubsets(funcao,dadosR,nvmax=11)
 summary(selecao1)
