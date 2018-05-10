@@ -15,6 +15,7 @@ dados <- rbind(dadosRed, dadosWhite)
 #randomize dados
 dadosR <- dados[sample(nrow(dados)),]
 dadosR[,1:11] <- normalize(dadosR[,1:11], method="range", range=c(0,1))
+dadosR[,12] <- dadosR[,12]*0.1
 
 #casos para treino:
 dadosTreino <- dadosR[1:4500, ]
@@ -54,9 +55,9 @@ resultados2 <- data.frame(atual = dadosTeste$quality, previsao = rnaWine2.result
 resultados3 <- data.frame(atual = dadosTeste$quality, previsao = rnaWine3.resultados$net.result)
 
 # resultados arredondados
-resultados1$previsao <- round(resultados1$previsao, digits=0)
-resultados2$previsao <- round(resultados2$previsao, digits=0)
-resultados3$previsao <- round(resultados3$previsao, digits=0)
+resultados1$previsao <- round(resultados1$previsao, digits=1)
+resultados2$previsao <- round(resultados2$previsao, digits=1)
+resultados3$previsao <- round(resultados3$previsao, digits=1)
 
 # calcular o RMSE
 rmse(c(dadosTeste$quality),c(resultados1$previsao))
