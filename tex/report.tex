@@ -1,0 +1,98 @@
+\documentclass{article}
+\usepackage[a4paper, top=3cm, left=3cm, right=2.5cm, bottom=2.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{fancyvrb}
+\usepackage{amsmath}
+\usepackage{ragged2e}
+\usepackage[portuguese]{babel}
+
+\begin{document}
+
+\title{\Huge
+       \textbf{UNIVERSIDADE DO MINHO}\\
+       \vspace*{3cm}
+       \huge
+       \textbf{\textit{Machine Learning de Qualidade de Vinhos}\\
+       \vspace*{3cm}
+       \large
+       Mestrado Integrado de Engenharia Informática\\
+       \vspace*{2cm}
+       Sistemas de Representação de Conhecimento e Raciocínio\\
+       (2ºSemestre/2017-2018)
+       \vspace*{\fill}}
+
+\author{\hspace*{-5cm}Número\hspace*{1cm}Nome do(s) Autor(es)\hspace*{\fill}\\
+        \hspace*{-5cm}a78468\hspace*{1cm}João Vieira\hspace*{\fill}\\
+        \hspace*{-5cm}a78821\hspace*{1cm}José Martins\hspace*{\fill}\\
+        \hspace*{-5cm}a77049\hspace*{1cm}Miguel Quaresma\hspace*{\fill}\\
+        \hspace*{-5cm}a77689\hspace*{1cm}Simão Barbosa\hspace*{\fill}}
+
+\date{\hspace*{\fill}Braga, Portugal\hspace*{1cm}\\
+      \hspace*{\fill}\today\hspace*{1cm}}
+
+\maketitle
+
+\newpage
+
+\justify
+
+\vspace*{\fill}
+\section{Resumo}
+{\color{red}TODO}
+\vspace*{\fill}
+
+\newpage
+
+\vspace*{\fill}
+\tableofcontents
+\vspace*{\fill}
+
+\newpage
+
+\vspace*{\fill}
+\section{Introdução}
+{\color{red}TODO}
+\vspace*{\fill}
+
+\newpage
+
+\section{Descrição do Trabalho e Análise de Resultados}
+
+\subsection{Tentativas}
+
+funcao <- quality ~ fixed.acidity+volatile.acidity+citric.acid+residual.sugar+chlorides+free.sulfur.dioxide+total.sulfur.dioxide+density+pH+sulphates+alcohol
+funcaoOpt <- quality ~ alcohol+volatile.acidity+sulphates+residual.sugar+total.sulfur.dioxide
+funcaoOpt2 <- quality ~ alcohol+volatile.acidity+sulphates
+
+\subsubsection{Com funcao}
+Rede Neuronal : Erro
+11 -> 5 -> 1 : 0.7657542487
+11 -> 4 -> 1 : 0.7895790985
+11 -> 6 -> 1 : 0.7677135378
+
+\subsubsection{Com funcaoOpt}
+Rede Neuronal : Erro
+5 -> 7 -> 3 -> 1 : 0.7690169573
+5 -> 6 -> 3 -> 1 : 0.7634620563
+5 -> 5 -> 3 -> 1 : 0.7777579064
+
+\subsubsection{Com funcaoOpt2}
+Rede Neuronal : Erro
+3 -> 7 -> 3 -> 1 : 0.7857646844 
+3 -> 4 -> 1 : 0.7993487585
+3 -> 6 -> 2 : 0.8105464072
+
+{\color{red}TODO}
+
+\newpage
+
+\vspace*{\fill}
+\section{Conclusões e Sugestões}
+{\color{red}TODO}
+\vspace*{\fill}
+
+\newpage
+
+\end{document}
