@@ -5,9 +5,9 @@ library( leaps )
 library( arules )
 library( BBmisc)
 #red wine
-dadosRed <- read.csv("/home/jonasv/Desktop/winequality-red.csv",header=TRUE,sep=";",dec=".")
+dadosRed <- read.csv("~/MLWine/datasets/winequality-red.csv",header=TRUE,sep=";",dec=".")
 #white wine
-dadosWhite <- read.csv("/home/jonasv/Desktop/winequality-white.csv",header=TRUE,sep=";",dec=".")
+dadosWhite <- read.csv("~/MLWine/datasets/winequality-white.csv",header=TRUE,sep=";",dec=".")
 
 #junta os dados
 dados <- rbind(dadosRed, dadosWhite)
