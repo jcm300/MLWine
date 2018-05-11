@@ -1,2 +1,6 @@
 Datasets/**
 **/*.csv
+
+**/*.aux
+**/*.log
+**/*.toc
