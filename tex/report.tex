@@ -7,6 +7,7 @@
 \usepackage{amsmath}
 \usepackage{ragged2e}
 \usepackage[portuguese]{babel}
+\usepackage{color}
 
 \begin{document}
 
@@ -22,6 +23,7 @@
        Sistemas de Representação de Conhecimento e Raciocínio\\
        (2ºSemestre/2017-2018)
        \vspace*{\fill}}
+}
 
 \author{\hspace*{-5cm}Número\hspace*{1cm}Nome do(s) Autor(es)\hspace*{\fill}\\
         \hspace*{-5cm}a78468\hspace*{1cm}João Vieira\hspace*{\fill}\\
@@ -64,19 +66,26 @@ Como tinhamos dois datasets sobre vinhos(um de vinho branco e outro de tinto) co
 Após isso avaliamos os dados e procedemos à normalização dos mesmos, sendo que o output (quality) foi multiplicado por 0.1 de modo a normalizar.
 Realizamos de seguida um teste aos dados de mod a saber quais os valores mais influentes no valor output. Com os resultados decidimos criar as seguintes fórmulas:
 \begin{verbatim}
-funcao <- quality ~ fixed.acidity+volatile.acidity+citric.acid+residual.sugar+chlorides+free.sulfur.dioxide+total.sulfur.dioxide+density+pH+sulphates+alcohol
+funcao <- quality ~ fixed.acidity+volatile.acidity+citric.acid+residual.sugar+chlorides+
+                    free.sulfur.dioxide+total.sulfur.dioxide+density+pH+sulphates+alcohol
 funcaoOpt <- quality ~ alcohol+volatile.acidity+sulphates+residual.sugar+total.sulfur.dioxide
 funcaoOpt2 <- quality ~ alcohol+volatile.acidity+sulphates
 \end{verbatim}
 Após isso decidimos dividir os dados em duas partes, uma parte para treinar a rede neuronal (os primeiros 4500) e o resto para testar a rede neuronal treinada.
 Por forma a descobrir a melhor rede neuronal, ou seja, que obtém o menor erro com os dados de teste é necessário realizar várias tentativas que foi o que se realizou seguindo a seguinte ordem de execução:
 \begin{itemize}
-    \item treinar a rede neuronal: rnaWine <- neuralnet( funcao, dadosTreino, lifesign="full", hidden = c(7,5), threshold = 0.01)
-    \item preparar os dados de teste: dadosTeste1 <- subset(dadosTeste, select = c("fixed.acidity","volatile.acidity","citric.acid","residual.sugar","chlorides","free.sulfur.dioxide","total.sulfur.dioxide","density","pH","sulphates","alcohol"))
-    \item testar a rede: rnaWine1.resultados <- compute(rnaWine1,dadosTeste1)
-    \item comparar resultados: resultados1 <- data.frame(atual = dadosTeste$quality, previsao = rnaWine1.resultados$net.result)
-    \item arredondar os resultados: resultados1$previsao <- round(resultados1$previsao, digits=1)
-    \item calcular o RMSE: rmse(c(dadosTeste$quality),c(resultados1$previsao))
+    \item treinar a rede neuronal: \\
+        \verb|rnaWine <- neuralnet(funcao, dadosTreino, lifesign=``full'', hidden = c(7,5), threshold = 0.01)|
+    \item preparar os dados de teste: \\ 
+        \verb|dadosTeste1 <- subset(dadosTeste, select = c(``fixed.acidity'', ``volatile.acidity'', ``citric.acid'', ``residual.sugar'', ``chlorides'', ``free.sulfur.dioxide'', ``total.sulfur.dioxide'', ``density'', ``pH'', ``sulphates'', ``alcohol''))|
+    \item testar a rede: \\
+        \verb|rnaWine1.resultados <- compute(rnaWine1,dadosTeste1)|
+    \item comparar resultados: \\
+        \verb|resultados1 <- data.frame(atual = dadosTeste$quality, previsao = rnaWine1.resultados$net.result)|
+    \item arredondar os resultados: \\
+        \verb|resultados1$previsao <- round(resultados1$previsao, digits=1)|
+    \item calcular o RMSE: \\
+        \verb|rmse(c(dadosTeste$quality),c(resultados1$previsao))|
 \end{itemize}
 O arredondamento dos resultados é realizado com 1 casa decimal devido que o output dos datasets não é de 0 ou 1(falso ou verdadeiro) mas sim de 0 a 10(ou após normalizados de 0 a 1, de 0.1 em 0.1).
 É também importante referir que como variamos a fórmula entre as várias tentativas na preperação de dados de teste os dados definidos mudam consoante a fórmula. É importante referir também que durante os testes é variado o hidden e o threshold da rede neuronal como óbvio de modo a obter melhores resultados.
@@ -86,55 +95,55 @@ O hidden é referente às camadas intermédias da rede neuronal enquanto que a f
 
 \subsubsection{threshold=0.1}
 \subsubsection{Com funcao}
-Rede Neuronal : Erro
-11 -> 6 -> 1 : 0.07857646844
-11 -> 3 -> 3 -> 1 : 0.07777579064
-11 -> 10 -> 8 -> 1 : 0.07716171911
-11 -> 7 -> 4 -> 1 : 0.07611629613
+Rede Neuronal : Erro\\
+11 $\to$ 6 $\to$ 1 : 0.07857646844\\
+11 $\to$ 3 $\to$ 3 $\to$ 1 : 0.07777579064\\
+11 $\to$ 10 $\to$ 8 $\to$ 1 : 0.07716171911\\
+11 $\to$ 7 $\to$ 4 $\to$ 1 : 0.07611629613\\
 
 \subsubsection{Com funcaoOpt}
-Rede Neuronal : Erro
-5 -> 5 -> 3 -> 1 : 0.08027868335
+Rede Neuronal : Erro\\
+5 $\to$ 5 $\to$ 3 $\to$ 1 : 0.08027868335\\
 
 \subsubsection{Com funcaoOpt2}
-Rede Neuronal : Erro
-3 -> 6 -> 2 : 0.07958958319
+Rede Neuronal : Erro\\
+3 $\to$ 6 $\to$ 2 : 0.07958958319\\
 
 \subsubsection{threshold=0.01}
 \subsubsection{Com funcao}
-Rede Neuronal : Erro
-11 -> 6 -> 3 -> 1 : 0.07598460693
-11 -> 7 -> 4 -> 1 : 0.07738852289
-11 -> 12 -> 4 -> 1 : 0.07732378969
-11 -> 5 -> 3 -> 1 : 0.0760833952
-11 -> 10 -> 1 : 0.07528945978
-11 -> 8 -> 7 -> 1 : 0.09155639716
-11 -> 7 -> 5 -> 1 : 0.07595164896
+Rede Neuronal : Erro\\
+11 $\to$ 6 $\to$ 3 $\to$ 1 : 0.07598460693\\
+11 $\to$ 7 $\to$ 4 $\to$ 1 : 0.07738852289\\
+11 $\to$ 12 $\to$ 4 $\to$ 1 : 0.07732378969\\
+11 $\to$ 5 $\to$ 3 $\to$ 1 : 0.0760833952\\
+11 $\to$ 10 $\to$ 1 : 0.07528945978\\
+11 $\to$ 8 $\to$ 7 $\to$ 1 : 0.09155639716\\
+11 $\to$ 7 $\to$ 5 $\to$ 1 : 0.07595164896\\
 
 \subsubsection{Com funcaoOpt}
-Rede Neuronal : Erro
-5 -> 6 -> 2 -> 1 : 0.07628058791
-5 -> 8 -> 4 -> 1 : 0.07761466391
-5 -> 4 -> 1 : 0.07860832592
-5 -> 6 -> 3 -> 1 : 0.07719416045
-5 -> 6 -> 5 -> 1 : 0.07780797595
-5 -> 4 -> 3 -> 1 : 0.07784014795
-5 -> 4 -> 2 -> 1 : 0.07738852289
-5 -> 3 -> 2 -> 1 : 0.07835310341
-5 -> 4 -> 5 -> 4 -> 1 : 0.07706431316
+Rede Neuronal : Erro\\
+5 $\to$ 6 $\to$ 2 $\to$ 1 : 0.07628058791\\
+5 $\to$ 8 $\to$ 4 $\to$ 1 : 0.07761466391\\
+5 $\to$ 4 $\to$ 1 : 0.07860832592\\
+5 $\to$ 6 $\to$ 3 $\to$ 1 : 0.07719416045\\
+5 $\to$ 6 $\to$ 5 $\to$ 1 : 0.07780797595\\
+5 $\to$ 4 $\to$ 3 $\to$ 1 : 0.07784014795\\
+5 $\to$ 4 $\to$ 2 $\to$ 1 : 0.07738852289\\
+5 $\to$ 3 $\to$ 2 $\to$ 1 : 0.07835310341\\
+5 $\to$ 4 $\to$ 5 $\to$ 4 $\to$ 1 : 0.07706431316\\
 
 \subsubsection{Com funcaoOpt2}
-Rede Neuronal : Erro
-3 -> 4 -> 1 : 0.07946365023
-3 -> 2 -> 1 : 0.07999749621
-3 -> 2 -> 2 -> 1 : 0.07930595281
-3 -> 3 -> 2 -> 1 : 0.07984085322
-3 -> 4 -> 3 -> 1 : 0.07971531721
-3 -> 4 -> 4 -> 1 : 0.0796839023
-3 -> 5 -> 1 : 0.0796839023
-3 -> 5 -> 3 -> 1 : 0.07996619216
-3 -> 2 -> 3 -> 2 -> 1 : 0.07930595281
-3 -> 4 -> 5 -> 4 -> 1 : 0.08015383307
+Rede Neuronal : Erro\\
+3 $\to$ 4 $\to$ 1 : 0.07946365023\\
+3 $\to$ 2 $\to$ 1 : 0.07999749621\\
+3 $\to$ 2 $\to$ 2 $\to$ 1 : 0.07930595281\\
+3 $\to$ 3 $\to$ 2 $\to$ 1 : 0.07984085322\\
+3 $\to$ 4 $\to$ 3 $\to$ 1 : 0.07971531721\\
+3 $\to$ 4 $\to$ 4 $\to$ 1 : 0.0796839023\\
+3 $\to$ 5 $\to$ 1 : 0.0796839023\\
+3 $\to$ 5 $\to$ 3 $\to$ 1 : 0.07996619216\\
+3 $\to$ 2 $\to$ 3 $\to$ 2 $\to$ 1 : 0.07930595281\\
+3 $\to$ 4 $\to$ 5 $\to$ 4 $\to$ 1 : 0.08015383307\\
 
 O menor foi obtido claro usando todas as caracteristicas dos vinhos contudo o erro não aumenta assim tão significantemente se se usar apenas as 5 principais caracteristicas. Mesmo com apenas 3 o erro não é assim tão diferente.
 
