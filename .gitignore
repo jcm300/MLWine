@@ -4,3 +4,4 @@ Datasets/**
 **/*.aux
 **/*.log
 **/*.toc
+**/*.out

@@ -7,7 +7,7 @@
 \usepackage{amsmath}
 \usepackage{ragged2e}
 \usepackage[portuguese]{babel}
-\usepackage{color}
+\usepackage{hyperref}
 
 \begin{document}
 
@@ -58,7 +58,7 @@ Este relatório mostra e explica o processo de desenvolvimento de um programa ut
 
 \vspace*{\fill}
 \section{Introdução}
-As redes neuronais são cada vez mais usadas na área de informática e engenharia visto obter-se bons resultados para problemas por vezes complicados de codificar, tais como decifrar a escrita de uma pessoa. Para além disso permite encontrar padrões por vezes não percetiveis para os humanos. É por isso que neste trabalho usamos as redes neuronais de modo a que perante determinas caracteristicas de um vinho a mesma diga a qualidade do vinho. Como não seria de deixar, é importante datasets de modo a poder treinar a rede neuronal. Os datasets usados referentes a vinho branco e tinto podem ser encontrados em https://archive.ics.uci.edu/ml/datasets/Wine+Quality.
+As redes neuronais são cada vez mais usadas na área de informática e engenharia visto obter-se bons resultados para problemas por vezes complicados de codificar, tais como decifrar a escrita de uma pessoa. Para além disso permite encontrar padrões por vezes não percetiveis para os humanos. É por isso que neste trabalho usamos as redes neuronais de modo a que perante determinas caracteristicas de um vinho a mesma diga a qualidade do vinho. Sempre que se pretende construir uma rede neuronal é necessário datasets de modo a poder treinar a rede neuronal. Os datasets usados referentes a vinho branco e tinto podem ser encontrados em \url{https://archive.ics.uci.edu/ml/datasets/Wine+Quality}.
 \vspace*{\fill}
 
 \newpage
@@ -136,7 +136,8 @@ O \textit{hidden} é referente às camadas intermédias da rede neuronal, enquan
 
 \subsubsection{threshold=0.1}
 
-\textbf{Com funcao}\\
+\textbf{Com funcao}
+\begin{center}
 \begin{tabular}{ | l | l | }
 \hline
 Rede Neuronal & Erro\\ \hline
@@ -145,24 +146,30 @@ Rede Neuronal & Erro\\ \hline
 11 $\to$ 10 $\to$ 8 $\to$ 1 & 0.07716171911\\ \hline
 11 $\to$ 7 $\to$ 4 $\to$ 1 & 0.07611629613\\ \hline
 \end{tabular}
-\\
-\textbf{Com funcaoOpt}\\
+\end{center}
+
+\textbf{Com funcaoOpt}
+\begin{center}
 \begin{tabular}{ | l | l | }
 \hline
 Rede Neuronal & Erro\\ \hline
 5 $\to$ 5 $\to$ 3 $\to$ 1 & 0.08027868335\\ \hline
 \end{tabular}
-\\
-\textbf{Com funcaoOpt2}\\
+\end{center}
+
+\textbf{Com funcaoOpt2}
+\begin{center}
 \begin{tabular}{ | l | l | }
 \hline
 Rede Neuronal & Erro\\ \hline
 3 $\to$ 6 $\to$ 2 & 0.07958958319\\ \hline
 \end{tabular}
+\end{center}
 
 \subsubsection{threshold=0.01}
 
-\textbf{Com funcao}\\
+\textbf{Com funcao}
+\begin{center}
 \begin{tabular}{ | l | l | }
 \hline
 Rede Neuronal & Erro\\ \hline
@@ -174,8 +181,10 @@ Rede Neuronal & Erro\\ \hline
 11 $\to$ 8 $\to$ 7 $\to$ 1 & 0.09155639716\\ \hline
 11 $\to$ 7 $\to$ 5 $\to$ 1 & 0.07595164896\\ \hline
 \end{tabular}
-\\
-\textbf{Com funcaoOpt}\\
+\end{center}
+
+\textbf{Com funcaoOpt}
+\begin{center}
 \begin{tabular}{ | l | l | }
 \hline
 Rede Neuronal & Erro\\ \hline
@@ -189,8 +198,10 @@ Rede Neuronal & Erro\\ \hline
 5 $\to$ 3 $\to$ 2 $\to$ 1 & 0.07835310341\\ \hline
 5 $\to$ 4 $\to$ 5 $\to$ 4 $\to$ 1 & 0.07706431316\\ \hline
 \end{tabular}
-\\
-\textbf{Com funcaoOpt2}\\
+\end{center}
+
+\textbf{Com funcaoOpt2}
+\begin{center}
 \begin{tabular}{ | l | l | }
 \hline
 Rede Neuronal & Erro\\ \hline
@@ -205,7 +216,8 @@ Rede Neuronal & Erro\\ \hline
 3 $\to$ 2 $\to$ 3 $\to$ 2 $\to$ 1 & 0.07930595281\\ \hline
 3 $\to$ 4 $\to$ 5 $\to$ 4 $\to$ 1 & 0.08015383307\\ \hline
 \end{tabular}
-\\
+\end{center}
+
 O menor valor de erro conseguido foi obtido como esperado usando todas as caracteristicas dos vinhos, contudo, o erro não aumenta assim tão significantemente se se usar apenas as 5 principais caracteristicas. É de referir também que mesmo usando apenas 3 caraterísticas se consegue um valor para o erro obtido que não é assim tão diferente dos referidos anteriormente.\\
 Desta forma, podemos concluir com isto que não usando todas as caraterísticas dos vinhos, ou seja, treinando uma rede neuronal de uma forma não tão complexa, consegue-se bom resultados e um nível de erro bastante pequeno.
 Sendo assim, a melhor rede neuronal seria 11 $\to$ 7 $\to$ 5 $\to$ 1 com um erro de aproximadamente 7.595\% de a resposta dada pela rede ser errada. Contudo uma boa alternativa seria a rede 5 $\to$ 6 $\to$ 2 $\to$ 1 com um erro de aproximadamente 7.628\% de a resposta dada pela rede ser incorreta.
