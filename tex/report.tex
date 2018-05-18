@@ -58,14 +58,14 @@ Este relatório mostra e explica o processo de desenvolvimento de um programa ut
 
 \vspace*{\fill}
 \section{Introdução}
-As redes neuronais são cada vez mais usadas na área de informática e engenharia visto obter-se bons resultados para problemas por vezes complicados de codificar, tais como decifrar a escrita de uma pessoa. Para além disso permite encontrar padrões por vezes não percetiveis para os humanos. É por isso que neste trabalho usamos as redes neuronais de modo a que perante determinas caracteristicas de um vinho a mesma diga a qualidade do vinho. Sempre que se pretende construir uma rede neuronal é necessário \textit{datasets} de modo a poder treinar a rede neuronal. Os \textit{datasets} usados referentes a vinho branco e tinto podem ser encontrados em \url{https://archive.ics.uci.edu/ml/datasets/Wine+Quality}.
+As redes neuronais são cada vez mais usadas na área de informática e engenharia visto permitirem a obtenção de bons resultados/soluções para problemas por vezes complicados de codificar, tais como decifrar a escrita de uma pessoa. Para além disso permitem encontrar padrões por vezes não percetiveis para os humanos. É por isso que, neste trabalho, recorremos a redes neuronais que nos permitam, tendo em conta determinadas caraterísticas de um vinho, obter uma medida da qualidade do vinho. Os \textit{datasets} são um elemento fundamental na contrução de uma rede neuronal visto que são estes que vão permitir treinar a mesma. Os \textit{datasets} usados referentes a vinho branco e tinto podem ser encontrados em \url{https://archive.ics.uci.edu/ml/datasets/Wine+Quality}.
 \vspace*{\fill}
 
 \newpage
 
 \section{Descrição do Trabalho e Análise de Resultados}
 
-Como os dados a serem tratados neste projeto são dois \textit{datasets} sobre vinhos (um de vinho branco e outro de vinho tinto) com as mesmas características, começamos por ler os mesmos e junta-los num só, realizando após a junção um sorteio da ordem de cada linha.
+Como os dados a serem tratados neste projeto são dois \textit{datasets} sobre vinhos (um de vinho branco e outro de vinho tinto) com as mesmas características, começamos por ler os mesmos e junta-los num só, procedendo, de seguinda, à sua ordenação de maneira aleatória.
 
 \begin{verbatim}
 # leitura dos dados a processar
@@ -76,14 +76,14 @@ dadosWhite <- read.csv(".../winequality-white.csv",header=TRUE,sep=";",dec=".")
 dados <- rbind(dadosRed, dadosWhite)
 \end{verbatim}
 
-Após isto, avaliamos os dados e procedemos à normalização dos mesmos, sendo que o \textit{output} (quality) foi multiplicado por 0.1 de modo a tornar-se normalizado.
+Após isto, avaliamos os dados e procedemos à normalização dos mesmos. A normalização do campo/parametro \textit{output}(quality) é realizada multiplicando o mesmo por 0.1.
 
 \begin{verbatim}
 dadosR[,1:11] <- normalize(dadosR[,1:11], method="range", range=c(0,1))
 dadosR[,12] <- dadosR[,12]*0.1
 \end{verbatim}
 
-Realizamos de seguida um teste aos dados de modo a saber quais os valores mais influentes no valor \textit{output}. Tendo em conta os resultados decidimos criar as seguintes fórmulas:
+Realizamos de seguida um teste aos dados de modo a saber quais os valores que maior influência têm no valor do campo \textit{output}. Tendo em conta os resultados decidimos criar as seguintes fórmulas:
 
 \begin{verbatim}
 funcao <- quality ~ fixed.acidity+volatile.acidity+citric.acid+residual.sugar+chlorides+
@@ -92,9 +92,9 @@ funcaoOpt <- quality ~ alcohol+volatile.acidity+sulphates+residual.sugar+total.s
 funcaoOpt2 <- quality ~ alcohol+volatile.acidity+sulphates
 \end{verbatim}
 
-sendo que a primira (\texttt{funcao}) tem em conta todos os valores das caraterísticas dos vinhos presentes nos ficheiros de \textit{input}, a segunda (\texttt{funcaoOpt}) apenas 5 destes valores, e por último apenas temos em conta 3 deles (\texttt{funcaoOpt2}).\\
-Após isso decidimos dividir os dados em duas partes, uma parte para treinar a rede neuronal (os primeiros 4500) e o resto para testar a rede neuronal treinada.
-Por forma a descobrir a melhor rede neuronal, ou seja, a que obtém o menor erro com os dados de teste, é necessário realizar várias tentativas e verificações de resultados obtidos com as mesmas. O processo seguido por nós foi executado pela seguinte ordem:
+sendo que a primeira (\texttt{funcao}) tem em conta os valores de todas as caraterísticas dos vinhos presentes nos ficheiros de \textit{input}, a segunda (\texttt{funcaoOpt}) apenas 5 destas caraterísticas, e por último a \texttt{funcaoOpt2} que tem em conta apenas 3 destas caraterísticas.\\
+Após isso decidimos dividir os dados em duas partes, uma parte para treinar a rede neuronal (os primeiros 4500 registos) e o resto para testar a rede neuronal treinada.
+Por forma a descobrir a melhor rede neuronal, ou seja, a que apresenta o menor erro com os dados de teste, é necessário realizar várias tentativas e verificações de resultados obtidos com as mesmas. O processo seguido por nós foi executado pela seguinte ordem:
 
 \begin{itemize}
     \item Treinar a rede neuronal:
@@ -128,9 +128,9 @@ Por forma a descobrir a melhor rede neuronal, ou seja, a que obtém o menor erro
         \end{verbatim}
 \end{itemize}
 
-O arredondamento dos resultados é realizado com 1 casa decimal tendo em conta que o \textit{output} dos \textit{datasets} não toma o valor de 0 ou 1 (falso ou verdadeiro) mas sim um valor compreendido entre 0 e 10 (ou após serem normalizados de 0 a 1, de 0.1 em 0.1).\\
-É também importante referir que como variamos a fórmula entre as várias tentativas na preparação de dados de teste os dados definidos mudam consoante a fórmula. É de notar também que durante os testes é variado o \textit{hidden} e o \textit{threshold} da rede neuronal, com o objetivo de obter os melhores resultados possíveis.
-O \textit{hidden} é referente às camadas intermédias da rede neuronal, enquanto que a fórmula inserida define os neurónios de entrada e de saída.
+O arredondamento dos resultados é realizado com 1 casa decimal tendo em conta que o \textit{output} dos \textit{datasets} não toma o valor de 0 ou 1 (falso ou verdadeiro) mas sim um valor compreendido entre 0 e 10 (ou entre 0 e 1 após a sua normalização).\\
+É também importante referir que, como variamos a fórmula entre as várias tentativas na preparação de dados de teste, os dados definidos mudam consoante a fórmula usada. É de notar também que, durante os testes, os valores dos campos \textit{hidden} e \textit{threshold} da rede neuronal variam com o objetivo de obter os melhores resultados possíveis.
+O campo \textit{hidden} é referente às camadas intermédias da rede neuronal, enquanto que a fórmula inserida define os neurónios de entrada e de saída.
 
 \subsection{Tentativas}
 
@@ -218,15 +218,15 @@ Rede Neuronal & Erro\\ \hline
 \end{tabular}
 \end{center}
 
-O menor valor de erro conseguido foi obtido como esperado usando todas as caracteristicas dos vinhos, contudo, o erro não aumenta assim tão significantemente se se usar apenas as 5 principais caracteristicas. É de referir também que mesmo usando apenas 3 caraterísticas se consegue um valor para o erro obtido que não é assim tão diferente dos referidos anteriormente.\\
-Desta forma, podemos concluir com isto que não usando todas as caraterísticas dos vinhos, ou seja, treinando uma rede neuronal de uma forma não tão complexa, consegue-se bom resultados e um nível de erro bastante pequeno.
-Sendo assim, a melhor rede neuronal seria 11 $\to$ 7 $\to$ 5 $\to$ 1 com um erro de aproximadamente 7.595\% de a resposta dada pela rede ser errada. Contudo uma boa alternativa seria a rede 5 $\to$ 6 $\to$ 2 $\to$ 1 com um erro de aproximadamente 7.628\% de a resposta dada pela rede ser incorreta.
+O menor valor de erro conseguido foi obtido usando todas as caracteristicas dos vinhos, contudo, o aumento do erro não é significativo quando a fórmula usada tem em conta apenas 5 das principais caracteristicas. É importante salientar que, mesmo usando apenas 3 caraterísticas, o erro obtido não apresenta uma grande variação em relação aos casos referidos anteriomente.\\
+Sendo assim é possível concluir que, mesmo quando não são tidas em conta todas as caraterísticas que descrevem um vinho(o que leva a uma redução na complexidade do treino de uma rede neuronal), os resultados obtidos apresentam um erro aceitável, sendo por isso aceitáveis.
+Como tal a melhor rede neuronal seria 11 $\to$ 7 $\to$ 5 $\to$ 1 com um erro de aproximadamente 7.595\%. Contudo uma boa alternativa seria a rede 5 $\to$ 6 $\to$ 2 $\to$ 1 com um erro de aproximadamente 7.628\%.
 
 \newpage
 
 \vspace*{\fill}
 \section{Conclusões e Sugestões}
-Após várias tentativas de redes neuronais construídas, chegamos à conclusão de que não é de uma importância relevante usar todas as caracteristicas dos vinhos recebidas como \textit{input}, porque é possível verificar que o erro diminui pouco em relação a uma rede com as mais importantes caraterísticas (respetivamente, utilizando apenas 5 e 3 dados), e também porque o tempo de aprendizagem da rede neuronal utilizando todos os dados é muito superior, acabando por não compensar a diferença entre tempos tendo em conta a pequena diferença nos erros verificada. Uma possível melhoria para o programa passaria por continuar a testar novas redes neuronais, até criar um programa que em ciclo teste por si só as diferentes redes neuronais.
+Após várias tentativas de redes neuronais construídas, chegamos à conclusão de que não é relevante usar todas as caracteristicas dos vinhos recebidas como \textit{input}, porque é possível verificar que o erro diminui pouco em relação a uma rede com as mais importantes caraterísticas (respetivamente, utilizando apenas 5 e 3 dados), e também porque o tempo de aprendizagem da rede neuronal utilizando todos os dados é muito superior, acabando por não compensar a diferença entre tempos tendo em conta a pequena diferença verificada nos erros. Uma possível melhoria para o programa passaria por continuar a testar novas redes neuronais até obter um programa que realize, de forma autónoma, testes às diferentes configurações para a rede neuronal.
 \vspace*{\fill}
 
 \end{document}
